@@ -1,6 +1,5 @@
 const { useState, useEffect } = React
 
-import { UserMsg } from './UserMsg.jsx'
 import { ShoppingCart } from './ShoppingCart.jsx'
 
 export function AppFooter() {
@@ -32,7 +31,6 @@ export function AppFooter() {
                 </h5>
             }
             <ShoppingCart isCartShown={isCartShown} />
-            <UserMsg />
         </footer>
     )
 }
