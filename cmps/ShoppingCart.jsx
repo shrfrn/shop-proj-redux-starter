@@ -2,7 +2,7 @@ const { useState, useEffect } = React
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { userService } from '../services/user.service.js'
 
-export function ShoppingCart({isCartShown}) {
+export function ShoppingCart({ isCartShown }) {
 
   // TODO: get from storeState
   const cart = []

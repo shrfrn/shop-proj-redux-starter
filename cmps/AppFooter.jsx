@@ -1,36 +1,21 @@
-const { useState, useEffect } = React
 
-import { ShoppingCart } from './ShoppingCart.jsx'
 
-export function AppFooter() {
-
-    const [isCartShown, setIsCartShown] = useState(false)
+export function AppFooter({ isCartShown, setIsCartShown }) {
 
     // TODO: move to storeState
     const count = 101
     const carsCount = 0
     const cart = []
 
-    return (
-        <footer>
-            <h5>
-                Currently {carsCount} cars in the shop
-            </h5>
-            <p>
-                Coffeerights to all - Count: {count}
-            </p>
-            {
-                <h5>
-                    <span>{cart.length}</span> Products in your Cart
-                    <a href="#" onClick={(ev) => {
-                        ev.preventDefault()
-                        setIsCartShown(!isCartShown)
-                    }}>
-                        ({(isCartShown) ? 'hide' : 'show'})
-                    </a>
-                </h5>
-            }
-            <ShoppingCart isCartShown={isCartShown} />
-        </footer>
-    )
+    return <footer className="app-footer">
+        
+        <section className='cart-stats'>
+            <p>{carsCount} cars in the shop</p>
+            <p className="product-count">{cart.length} products in your Cart</p>
+            <button onClick={() => setIsCartShown(!isCartShown)}>
+                {(isCartShown) ? 'hide 🛒' : 'show 🛒'}
+            </button>
+        </section>
+        <p>Coffeerights &copy; 2024 - Count: {count}</p>
+    </footer>
 }
