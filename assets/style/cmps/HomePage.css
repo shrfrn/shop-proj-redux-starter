@@ -1,0 +1,7 @@
+.home-page .counter {
+    display: flex;
+    justify-content: end;
+    gap: .5em;
+
+    margin-block-start: 1em;
+}
