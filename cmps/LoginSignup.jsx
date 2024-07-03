@@ -12,7 +12,7 @@ function getEmptyCredentials() {
     }
 }
 
-export function LoginSignup() {
+export function LoginSignup({ setUser }) {
 
     const [credentials, setCredentials] = useState(getEmptyCredentials())
     const [isSignupState, setIsSignupState] = useState(false)
@@ -26,22 +26,14 @@ export function LoginSignup() {
 
     function onSubmit(ev) {
         ev.preventDefault()
-        const prm = Promise.resolve().then(() => {
-            if (isSignupState) {
-                // TODO: move to a function and use dispatch
-                return userService.signup(credentials)
-            } else {
-                // TODO: move to a function and use dispatch
-                return userService.login(credentials)
-            }
-        })
-        prm
-            .then((user) => {
+        const method = isSignupState ? userService.signup : userService.login
+
+        return method(credentials)
+            .then(user => {
+                setUser(user)
                 showSuccessMsg(`Welcome ${user.fullname}`)
             })
-            .catch(err => {
-                showErrorMsg('OOps try again')
-            })
+            .catch(err => showErrorMsg('OOps try again'))
     }
 
     function onToggleSignupState() {
@@ -50,7 +42,7 @@ export function LoginSignup() {
 
     const { username, password, fullname } = credentials
 
-    return <div className="login-page">
+    return <div>
 
         <form className="login-form" onSubmit={onSubmit}>
             <input
@@ -84,11 +76,11 @@ export function LoginSignup() {
             <button>{isSignupState ? 'Signup' : 'Login'}</button>
         </form>
 
-        <div className="btns">
+        <div className="login-signup-toggle">
             <a href="#" onClick={onToggleSignupState}>
                 {isSignupState ? 'Already a member? Login' : 'New user? Signup here'}
             </a>
         </div>
-    </div >
+    </div>
 }
 

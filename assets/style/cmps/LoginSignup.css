@@ -1,4 +1,15 @@
-.login-page form {
+.login-signup {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: .5em;
+}
+
+.login-signup p {
+    margin: 0;
+}
+
+.login-signup form {
     display: flex;
     justify-content: end;
     gap: .5em;
@@ -6,7 +17,7 @@
     margin-block-start: 1em;
 }
 
-.btns {
+.login-signup-toggle {
     display: flex;
     justify-content: end;
 

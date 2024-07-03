@@ -1,3 +1,4 @@
+const { useState } = React
 const { NavLink } = ReactRouterDOM
 
 import { userService } from '../services/user.service.js'
@@ -6,12 +7,12 @@ import { LoginSignup } from './LoginSignup.jsx'
 export function AppHeader() {
 
     // TODO: get from storeState
-    var user = userService.getLoggedinUser()
+    const [ user, setUser ] = useState(userService.getLoggedinUser())
 
     function onLogout() {
         // TODO: move to a function and use dispatch
         userService.logout()
-            .then(() => user = null)
+            .then(() => setUser(null))
     }
 
     return (
@@ -28,15 +29,15 @@ export function AppHeader() {
             </nav>
             <h1>State Management with Redux</h1>
 
-            {user && <section className="user-info">
+            {user && <section className="login-signup">
                 <p>{user.fullname} <span>${user.score.toLocaleString()}</span></p>
                 <button onClick={onLogout}>Logout</button>
             </section>}
             
-            {!user && <section className="user-info">
-                <LoginSignup />
+            {!user && <section className="login-signup">
+                <LoginSignup setUser={ setUser }/>
             </section>}
-            
+
         </header>
     )
 }
