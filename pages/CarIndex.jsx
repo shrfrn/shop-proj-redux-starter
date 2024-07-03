@@ -1,9 +1,10 @@
 const { useState, useEffect } = React
 
+import { CarList } from '../cmps/CarList.jsx'
 import { carService } from '../services/car.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
-export function CarApp() {
+export function CarIndex() {
 
     // TODO: move to storeState
     const [cars, setCars] = useState([])
@@ -63,7 +64,7 @@ export function CarApp() {
             })
     }
 
-    function addToCart(car) {
+    function onAddToCart(car) {
         console.log(`Adding ${car.vendor} to Cart`)
         // TODO: use dispatch
         setCart([...cart, car])
@@ -75,27 +76,11 @@ export function CarApp() {
             <h3>Cars App</h3>
             <main>
                 <button onClick={onAddCar}>Add Car ⛐</button>
-                <ul className="car-list">
-                    {cars.map(car =>
-                        <li className="car-preview" key={car._id}>
-                            <h4>{car.vendor}</h4>
-                            <h1>⛐</h1>
-                            <p>Price: <span>${car.price.toLocaleString()}</span></p>
-                            <p>Owner: <span>{car.owner && car.owner.fullname}</span></p>
-                            <div>
-                                <button onClick={() => {
-                                    onRemoveCar(car._id)
-                                }}>x</button>
-                                <button onClick={() => {
-                                    onEditCar(car)
-                                }}>Edit</button>
-                            </div>
-                            <button className="buy" onClick={() => {
-                                addToCart(car)
-                            }}>Add to Cart</button>
-
-                        </li>)}
-                </ul>
+                <CarList 
+                    cars={cars}
+                    onRemoveCar={onRemoveCar}
+                    onEditCar={onEditCar}
+                    onAddToCart={onAddToCart}/>
                 <hr />
                 <pre>{JSON.stringify(cart, null, 2)}</pre>
             </main>

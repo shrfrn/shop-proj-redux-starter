@@ -6,7 +6,7 @@ import { AppFooter } from './cmps/AppFooter.jsx'
 
 import { HomePage } from './pages/HomePage.jsx'
 import { AboutUs } from './pages/AboutUs.jsx'
-import { CarApp } from './pages/CarApp.jsx'
+import { CarIndex } from './pages/CarIndex.jsx'
 
 export function App() {
 
@@ -17,7 +17,7 @@ export function App() {
                 <Routes>
                     <Route element={<HomePage />} path="/" />
                     <Route element={<AboutUs />} path="/about" />
-                    <Route element={<CarApp />} path="/car" />
+                    <Route element={<CarIndex />} path="/car" />
                 </Routes>
             </main>
             <AppFooter />
