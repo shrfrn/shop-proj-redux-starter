@@ -11,6 +11,7 @@
 /* Components */
 @import './RootCmp.css';
 @import 'cmps/HomePage.css';
+@import 'cmps/CarIndex.css';
 
 @import 'cmps/AppHeader.css';
 @import 'cmps/AppFooter.css';

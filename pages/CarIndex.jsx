@@ -11,8 +11,8 @@ export function CarIndex() {
     const [cart, setCart] = useState([])
 
     useEffect(() => {
+        // TODO: move to a function and use dispatch
         carService.query()
-            // TODO: use dispatch
             .then(setCars)
     }, [])
 
@@ -21,7 +21,6 @@ export function CarIndex() {
         carService.remove(carId)
             .then(() => {
                 showSuccessMsg('Car removed')
-                // TODO: use dispatch
                 setCars(cars.filter(c => c._id !== carId))
             })
             .catch(err => {
@@ -37,7 +36,6 @@ export function CarIndex() {
         carService.save(carToSave)
             .then((savedCar) => {
                 showSuccessMsg(`Car added (id: ${savedCar._id})`)
-                // TODO: use dispatch
                 setCars([...cars, savedCar])
             })
             .catch(err => {
@@ -54,7 +52,6 @@ export function CarIndex() {
         // TODO: move to a function and use dispatch
         carService.save(carToSave)
             .then((savedCar) => {
-                // TODO: use dispatch
                 setCars(cars.map(c => (c._id === car._id) ? carToSave : c))
                 showSuccessMsg(`Car updated to price: $${savedCar.price}`)
             })
@@ -66,25 +63,26 @@ export function CarIndex() {
 
     function onAddToCart(car) {
         console.log(`Adding ${car.vendor} to Cart`)
+        
         // TODO: use dispatch
         setCart([...cart, car])
         showSuccessMsg('Added to Cart')
     }
 
-    return (
-        <div>
-            <h3>Cars App</h3>
-            <main>
-                <button onClick={onAddCar}>Add Car ⛐</button>
-                <CarList 
-                    cars={cars}
-                    onRemoveCar={onRemoveCar}
-                    onEditCar={onEditCar}
-                    onAddToCart={onAddToCart}/>
-                <hr />
-                <pre>{JSON.stringify(cart, null, 2)}</pre>
-            </main>
-        </div>
-    )
+    return <section className="car-index">
+        <header>
+            <h3>Cars</h3>
+            <button onClick={onAddCar}>Add Car ⛐</button>
+        </header>
 
+        <main>
+            <CarList 
+                cars={cars}
+                onRemoveCar={onRemoveCar}
+                onEditCar={onEditCar}
+                onAddToCart={onAddToCart}/>
+                
+            <pre>{JSON.stringify(cart, null, 2)}</pre>
+        </main>
+    </section>
 }

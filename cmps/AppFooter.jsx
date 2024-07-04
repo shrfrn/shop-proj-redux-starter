@@ -2,7 +2,7 @@
 
 export function AppFooter({ isCartShown, setIsCartShown }) {
 
-    // TODO: move to storeState
+    // TODO: move to store state
     const count = 101
     const carsCount = 0
     const cart = []

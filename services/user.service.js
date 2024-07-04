@@ -64,6 +64,3 @@ function _setLoggedinUser(user) {
 // Test Data
 // userService.signup({username: 'muki', password: 'muki1', fullname: 'Muki Ja'})
 // userService.login({username: 'muki', password: 'muki1'})
-
-
-

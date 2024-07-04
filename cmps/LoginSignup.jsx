@@ -1,8 +1,7 @@
+const { useState } = React
 
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { userService } from '../services/user.service.js'
-
-const { useState, useEffect } = React
 
 function getEmptyCredentials() {
     return {
@@ -83,4 +82,3 @@ export function LoginSignup({ setUser }) {
         </div>
     </div>
 }
-
