@@ -4,6 +4,8 @@ import { userService } from './user.service.js'
 
 const STORAGE_KEY = 'carDB'
 
+_createCars()
+
 export const carService = {
 	query,
 	getById,
@@ -39,4 +41,22 @@ function getEmptyCar() {
 		vendor: 'Susita-' + (Date.now() % 1000),
 		price: utilService.getRandomIntInclusive(1000, 9000),
 	}
+}
+
+function _createCars() {
+    const cars = utilService.loadFromStorage(STORAGE_KEY) || []
+    if (cars.length > 0) return
+
+    for (var i = 0; i < 4; i++){
+        const car = _createCar()
+        cars.push(car)
+    }
+    utilService.saveToStorage(STORAGE_KEY, cars)
+}
+
+function _createCar() {
+    const car = getEmptyCar()
+    car._id = utilService.makeId()
+
+    return car
 }
