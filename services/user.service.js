@@ -7,16 +7,14 @@ export const userService = {
     login,
     logout,
     signup,
-    getById,
     getLoggedinUser,
-    updateScore
+
+    getById,
+    updateScore,
+    getEmptyCredentials,
 }
 
 window.us = userService
-
-function getById(userId) {
-    return storageService.get(STORAGE_KEY, userId)
-}
 
 function login({ username, password }) {
     return storageService.query(STORAGE_KEY)
@@ -27,10 +25,23 @@ function login({ username, password }) {
         })
 }
 
+function logout() {
+    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN)
+    return Promise.resolve()
+}
+
 function signup({ username, password, fullname }) {
     const user = { username, password, fullname, score: 10000 }
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)
+}
+
+function getLoggedinUser() {
+    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN))
+}
+
+function getById(userId) {
+    return storageService.get(STORAGE_KEY, userId)
 }
 
 function updateScore(diff) {
@@ -46,13 +57,12 @@ function updateScore(diff) {
         })
 }
 
-function logout() {
-    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN)
-    return Promise.resolve()
-}
-
-function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN))
+function getEmptyCredentials() {
+    return {
+        fullname: '',
+        username: '',
+        password: '',
+    }
 }
 
 function _setLoggedinUser(user) {
