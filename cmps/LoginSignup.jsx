@@ -3,23 +3,17 @@ const { useState } = React
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { userService } from '../services/user.service.js'
 
-function getEmptyCredentials() {
-    return {
-        fullname: '',
-        username: 'muki',
-        password: 'muki1',
-    }
-}
 
-export function LoginSignup({ setUser }) {
+export function LoginSignup({ setLoggedinUser }) {
 
-    const [credentials, setCredentials] = useState(getEmptyCredentials())
+    const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
     const [isSignupState, setIsSignupState] = useState(false)
 
     function handleCredentialsChange(ev) {
         const field = ev.target.name
         const value = ev.target.value
         const updatedCredentials = { ...credentials, [field]: value }
+        
         setCredentials(updatedCredentials)
     }
 
@@ -29,7 +23,7 @@ export function LoginSignup({ setUser }) {
 
         return method(credentials)
             .then(user => {
-                setUser(user)
+                setLoggedinUser(user)
                 showSuccessMsg(`Welcome ${user.fullname}`)
             })
             .catch(err => showErrorMsg('OOps try again'))

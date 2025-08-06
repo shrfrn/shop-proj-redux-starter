@@ -7,12 +7,12 @@ import { LoginSignup } from './LoginSignup.jsx'
 export function AppHeader() {
 
     // TODO: get from storeState
-    const [ user, setUser ] = useState(userService.getLoggedinUser())
+    const [ loggedinUser, setLoggedinUser ] = useState(userService.getLoggedinUser())
 
     function onLogout() {
         // TODO: move to a function and use dispatch
         userService.logout()
-            .then(() => setUser(null))
+            .then(() => setLoggedinUser(null))
     }
 
     return (
@@ -29,13 +29,13 @@ export function AppHeader() {
             </nav>
             <h1>State Management with Redux</h1>
 
-            {user && <section className="login-signup">
-                <p>{user.fullname} <span>${user.score.toLocaleString()}</span></p>
+            {loggedinUser && <section className="login-signup">
+                <p>{loggedinUser.fullname} <span>${loggedinUser.score.toLocaleString()}</span></p>
                 <button onClick={onLogout}>Logout</button>
             </section>}
             
-            {!user && <section className="login-signup">
-                <LoginSignup setUser={ setUser }/>
+            {!loggedinUser && <section className="login-signup">
+                <LoginSignup setLoggedinUser={ setLoggedinUser }/>
             </section>}
 
         </header>

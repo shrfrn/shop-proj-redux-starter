@@ -11,13 +11,13 @@ export function CarIndex() {
     const [cart, setCart] = useState([])
 
     useEffect(() => {
-        // TODO: move to a function and use dispatch
+        // TODO: move to an action
         carService.query()
             .then(setCars)
     }, [])
 
     function onRemoveCar(carId) {
-        // TODO: move to a function and use dispatch
+        // TODO: move to an action
         carService.remove(carId)
             .then(() => {
                 showSuccessMsg('Car removed')
@@ -32,7 +32,7 @@ export function CarIndex() {
     function onAddCar() {
         const carToSave = carService.getEmptyCar()
 
-        // TODO: move to a function and use dispatch
+        // TODO: move to an action
         carService.save(carToSave)
             .then((savedCar) => {
                 showSuccessMsg(`Car added (id: ${savedCar._id})`)
@@ -49,7 +49,7 @@ export function CarIndex() {
         const price = +prompt('New price?')
         const carToSave = { ...car, price }
 
-        // TODO: move to a function and use dispatch
+        // TODO: move to an action
         carService.save(carToSave)
             .then((savedCar) => {
                 setCars(cars.map(c => (c._id === car._id) ? carToSave : c))
